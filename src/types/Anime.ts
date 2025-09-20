@@ -1,0 +1,23 @@
+export type Anime = {
+	id: string;
+	userId: string;
+	malId: number;
+	title: string;
+	imageUrl: string;
+	listStatus: "Watching" | "Planning" | "Completed" | "Dropped";
+	status: string;
+	type: string;
+	source: string;
+	episodes: number;
+	episodesWatched: number;
+	malScore: number;
+	year: number;
+	season: "Winter" | "Spring" | "Summer" | "Fall";
+	aired: string;
+	duration: string;
+	synopsis: string;
+	studios: string[];
+	genres: string[];
+	themes: string[];
+	demographics: string[];
+};

@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+   provider = "prisma-client-js"
+   output   = "../src/generated/prisma"
+}
+
+datasource db {
+   provider = "mongodb"
+   url      = env("DATABASE_URL")
+}
+
+// User model for authentication
+model User {
+   id                String              @id @default(auto()) @map("_id") @db.ObjectId
+   email             String              @unique
+   password          String
+   createdAt         DateTime            @default(now())
+   updatedAt         DateTime            @updatedAt
+   list              Anime[] // Relation to user's anime list
+   sessions          Session[] // Relation to user sessions
+   verified          Boolean             @default(false)
+   VerificationToken VerificationToken[]
+   RateLimit         RateLimit[]
+
+   @@map("users")
+}
+
+enum ListStatus {
+   WATCHING
+   PLANNING
+   COMPLETED
+   DROPPED
+}
+
+// Anime model for tracking anime in user's list
+model Anime {
+   id              String     @id @default(auto()) @map("_id") @db.ObjectId
+   userId          String     @db.ObjectId
+   user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+   malId           Int? // MyAnimeList ID
+   title           String
+   imageUrl        String
+   listStatus      ListStatus
+   status          String // "Airing", "Finished", "Hiatus", "Not yet aired", etc.
+   type            String // TV, Movie, OVA, ONA, Music Video, etc.
+   source          String // Manga, Light Novel, Original, etc.
+   episodes        Int?
+   episodesWatched Int? // Number of episodes watched by the user
+   malScore        Float? // Anime's score on MyAnimeList
+   year            Int? // Year the anime was released
+   season          String? // "Winter", "Spring", "Summer", "Fall"
+   aired           String? // e.g., "Apr 3, 2021 to Jun 26, 2021"
+   duration        String? // e.g., "24 min per ep"
+   synopsis        String?
+   studios         String[]
+   genres          String[]
+   themes          String[]
+   demographics    String[]
+
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   @@index([userId, malId]) // Optimize queries for user-specific anime
+   @@map("user_anime")
+}
+
+// Session model for persistent logins
+model Session {
+   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+   userId    String   @db.ObjectId
+   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+   token     String   @unique
+   expiresAt DateTime
+   createdAt DateTime @default(now())
+
+   @@map("sessions")
+}
+
+enum TokenType {
+   EMAIL_VERIFICATION
+   PASSWORD_RESET
+}
+
+model VerificationToken {
+   id        String    @id @default(auto()) @map("_id") @db.ObjectId
+   token     String    @unique
+   userId    String    @db.ObjectId
+   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+   type      TokenType
+   expiresAt DateTime
+   createdAt DateTime  @default(now())
+
+   @@map("verification_token")
+}
+
+model RateLimit {
+   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+   userId    String   @unique @db.ObjectId
+   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+   count     Int      @default(0)
+   windowEnd DateTime
+
+   @@map("rate_limit")
+}
