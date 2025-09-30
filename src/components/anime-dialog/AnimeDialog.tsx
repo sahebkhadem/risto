@@ -50,8 +50,9 @@ const AnimeDialog: React.FC = () => {
 	const [hasAnime, setHasAnime] = useState(false);
 	const [isAdding, setIsAdding] = useState(false);
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const normalizeAnimeData = async (data: any) => {
-		let id = null;
+		const id = null;
 		let listStatus = null;
 		let episodesWatched = 0;
 
@@ -70,6 +71,7 @@ const AnimeDialog: React.FC = () => {
 				setHasAnime(false);
 			}
 		} catch (error) {
+			console.log(error);
 			toast.error("Sorry, something went wrong.");
 		}
 
@@ -90,10 +92,22 @@ const AnimeDialog: React.FC = () => {
 			aired: data.aired.string,
 			duration: data.duration,
 			synopsis: data.synopsis,
-			studios: data.studios.map((studio: any) => studio.name),
-			genres: data.genres.map((genre: any) => genre.name),
-			themes: data.themes.map((theme: any) => theme.name),
-			demographics: data.demographics.map((demo: any) => demo.name)
+			studios: data.studios.map(
+				(studio: { mal_id: number; type: string; name: string; url: string }) =>
+					studio.name
+			),
+			genres: data.genres.map(
+				(genre: { mal_id: number; type: string; name: string; url: string }) =>
+					genre.name
+			),
+			themes: data.themes.map(
+				(theme: { mal_id: number; type: string; name: string; url: string }) =>
+					theme.name
+			),
+			demographics: data.demographics.map(
+				(demo: { mal_id: number; type: string; name: string; url: string }) =>
+					demo.name
+			)
 		};
 
 		return normalizedData;
@@ -131,6 +145,7 @@ const AnimeDialog: React.FC = () => {
 			setIsAdding(false);
 			setHasAnime(true);
 		} catch (error) {
+			console.log(error);
 			setIsAdding(false);
 			toast.error("Something went wrong. Please try again.");
 		}
@@ -147,7 +162,7 @@ const AnimeDialog: React.FC = () => {
 					`https://api.jikan.moe/v4/anime/${selectedAnime}`
 				);
 				const data = await res.json();
-				let normalizedData = await normalizeAnimeData(data.data);
+				const normalizedData = await normalizeAnimeData(data.data);
 				setAnimeData(normalizedData);
 			} catch (err) {
 				console.error("Error fetching anime:", err);

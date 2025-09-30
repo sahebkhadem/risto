@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
 		}
 
 		// Remove 'id' from animeData before saving to DB
-		const { id, ...cleanAnimeData } = animeData;
+		const { id: _id, ...cleanAnimeData } = animeData;
 
 		// Add anime to database
 		const newAnime = await prisma.anime.create({

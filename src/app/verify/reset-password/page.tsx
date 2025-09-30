@@ -40,13 +40,23 @@ export default function VerifyResetPassword() {
 				}
 				setUser(data.user);
 				setTokenStatus("verified");
-			} catch (error: any) {
+			} catch (error: unknown) {
 				// Don't show toast if the request was aborted
-				if (error.name !== "AbortError") {
+				if (
+					typeof error === "object" &&
+					error !== null &&
+					"name" in error &&
+					(error as { name?: string }).name !== "AbortError"
+				) {
 					toast.error("Sorry, something went wrong.");
 				}
 				// Only set invalid status if it wasn't aborted
-				if (error.name !== "AbortError") {
+				if (
+					typeof error === "object" &&
+					error !== null &&
+					"name" in error &&
+					(error as { name?: string }).name !== "AbortError"
+				) {
 					setTokenStatus("invalid");
 				}
 			}

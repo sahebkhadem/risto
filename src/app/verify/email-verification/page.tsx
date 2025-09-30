@@ -13,7 +13,7 @@ type TokenStatus = "verifying" | "invalid" | "verified";
 
 export default function VerifyEmail() {
 	const [tokenStatus, setTokenStatus] = useState<TokenStatus>("verifying");
-	const [user, setUser] = useState("");
+	const [_user, setUser] = useState("");
 
 	const params = useSearchParams();
 
@@ -43,13 +43,23 @@ export default function VerifyEmail() {
 				useAuthStore.getState().setUser(data.user);
 				setUser(data.user);
 				setTokenStatus("verified");
-			} catch (error: any) {
+			} catch (error: unknown) {
 				// Don't show toast if the request was aborted
-				if (error.name !== "AbortError") {
+				if (
+					typeof error === "object" &&
+					error !== null &&
+					"name" in error &&
+					(error as { name: string }).name !== "AbortError"
+				) {
 					toast.error("Sorry, something went wrong.");
 				}
 				// Only set invalid status if it wasn't aborted
-				if (error.name !== "AbortError") {
+				if (
+					typeof error === "object" &&
+					error !== null &&
+					"name" in error &&
+					(error as { name: string }).name !== "AbortError"
+				) {
 					setTokenStatus("invalid");
 				}
 			}

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
-import { checkAndUpdateRateLimit } from "@/lib/rateLimiting";
 import { TokenType } from "@/generated/prisma";
 import { sendEmail } from "@/lib/mail";
 import PasswordResetEmail from "@/emails/PasswordResetEmail";

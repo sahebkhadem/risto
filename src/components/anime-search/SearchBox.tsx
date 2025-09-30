@@ -25,6 +25,7 @@ const SearchBox: FC = () => {
 	const debouncedQuery = useDebounce(query, 500);
 
 	// State for fetched anime results
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [results, setResults] = useState<any[]>([]);
 	// Loading state for initial fetch
 	const [isLoading, setIsLoading] = useState(false);

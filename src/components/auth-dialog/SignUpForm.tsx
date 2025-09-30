@@ -91,6 +91,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
 				setDialogIsOpen(false);
 			}
 		} catch (err) {
+			console.log(err);
 			toast.error("Sorry, something went wrong.");
 		}
 	}

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import prisma from "@/lib/prisma";
-import { COOKIE_NAME, getAuthenticatedUser } from "@/lib/session";
+import { COOKIE_NAME } from "@/lib/session";
 import { z } from "zod";
 
 const resetPasswordSchema = z.object({

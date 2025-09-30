@@ -10,9 +10,24 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+	// Place ignores at the top level to ensure they apply globally
+	{
+		ignores: [
+			"src/generated/**",
+			"node_modules/**",
+			"dist/**",
+			"build/**",
+			".next/**"
+		]
+	},
 	...compat.extends("next/core-web-vitals", "next/typescript"),
 	{
-		ignores: ["src/generated/**", "node_modules/**"]
+		rules: {
+			"@typescript-eslint/no-unused-vars": [
+				"error",
+				{ varsIgnorePattern: "^_", argsIgnorePattern: "^_" }
+			]
+		}
 	}
 ];
 

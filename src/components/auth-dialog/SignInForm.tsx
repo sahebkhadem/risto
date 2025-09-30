@@ -84,6 +84,7 @@ const SignInForm: React.FC<SignInFormProps> = ({
 				toast.success("Signed in successfully!");
 			}
 		} catch (err) {
+			console.log(err);
 			toast.error("Network error. Please try again.");
 		}
 	}
