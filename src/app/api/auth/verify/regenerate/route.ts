@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
-import { sendVerificationEmail } from "@/lib/mail";
+import { sendEmail } from "@/lib/mail";
 import { regenerateVerificationToken } from "@/lib/verification";
 import { checkAndUpdateRateLimit } from "@/lib/rateLimiting";
 import { TokenType } from "@/generated/prisma";
+import VerificationEmail from "@/emails/VerificationEmail";
 
 const regenerateTokenSchema = z.object({
 	email: z
@@ -47,7 +48,12 @@ export async function POST(req: NextRequest) {
 			user.id,
 			TokenType.EMAIL_VERIFICATION
 		);
-		await sendVerificationEmail(user.email, token);
+
+		await sendEmail(user.email, token, {
+			subject: "Action required to verify your account",
+			component: VerificationEmail,
+			path: "/verify/email-verification"
+		});
 
 		console.log("Successfully generated token.");
 		return NextResponse.json(
