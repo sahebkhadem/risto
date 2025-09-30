@@ -53,10 +53,6 @@ export default function InvalidToken({
 				body: JSON.stringify(values)
 			});
 
-			const data = await res.json();
-
-			console.log(data);
-
 			// If no user found, display error
 			if (res.status === 404) {
 				form.setError("email", {
@@ -80,6 +76,7 @@ export default function InvalidToken({
 			// If success, display success dialog
 			setIsOpen(true);
 		} catch (error) {
+			console.log(error);
 			form.setError("email", {
 				type: "server",
 				message: "Failed to send verification email. Try again later."

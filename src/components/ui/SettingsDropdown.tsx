@@ -36,6 +36,7 @@ const SettingsDropdown: React.FC = () => {
 				toast.success("You are signed out.");
 			}
 		} catch (err) {
+			console.log(err);
 			useAuthStore.getState().setIsSigningOut(false);
 			toast.error("Sorry, something went wrong.");
 		}

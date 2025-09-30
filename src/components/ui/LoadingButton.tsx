@@ -1,4 +1,4 @@
-import { Button, type buttonVariants } from "./button";
+import { Button } from "./button";
 import Spinner from "./Spinner";
 
 type ButtonProps = React.ComponentProps<typeof Button> & {
