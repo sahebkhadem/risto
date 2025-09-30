@@ -107,6 +107,7 @@ export const useAnimeStore = create<AnimeState>((set, get) => ({
 				};
 			});
 		} catch (error) {
+			console.error(error);
 			set({
 				lists: {
 					...get().lists,
