@@ -17,7 +17,7 @@ export async function checkAndUpdateRateLimit(
 	const now = new Date();
 	const windowEnd = new Date(now.getTime() + windowMs);
 
-	let rateLimit = await prisma.rateLimit.findUnique({
+	const rateLimit = await prisma.rateLimit.findUnique({
 		where: { userId }
 	});
 
