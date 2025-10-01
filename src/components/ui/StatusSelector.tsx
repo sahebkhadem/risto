@@ -20,10 +20,15 @@ const StatusSelector: React.FC<StatusSelectorProps> = ({
 }) => {
 	const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
+	// Ensure we never pass empty string as value
+	const currentValue = value || undefined;
+
 	return (
-		<Select value={value ?? ""} onValueChange={onChange} disabled={disabled}>
+		<Select value={currentValue} onValueChange={onChange} disabled={disabled}>
 			<SelectTrigger>
-				<SelectValue placeholder="Set status" />
+				<SelectValue placeholder="Set status">
+					{value && capitalize(value.toLowerCase())}
+				</SelectValue>
 			</SelectTrigger>
 			<SelectContent>
 				{listStatusValues.map((status) => (

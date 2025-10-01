@@ -41,7 +41,6 @@ type AnimeData = {
 	themes: string[];
 	demographics: string[];
 };
-// GOTTA SET UP THE STORE TO CHECK THE STUFF WITH selectedAnime WITH THE SERVER
 const AnimeDialog: React.FC = () => {
 	const isSignedIn = useAuthStore((state) => state.user !== null);
 	const [isLoading, setIsLoading] = useState(false);

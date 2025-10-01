@@ -47,6 +47,14 @@ const AnimeForm: React.FC<AnimeFormProps> = ({
 		}
 	});
 
+	// Ensure form values update when props change
+	useEffect(() => {
+		form.reset({
+			status: listStatus,
+			episode: episodesWatched
+		});
+	}, [listStatus, episodesWatched, form]);
+
 	const submitHandler = async (data: AnimeFormSchema) => {
 		try {
 			await fetch(`/api/user/anime/${animeId}`, {
