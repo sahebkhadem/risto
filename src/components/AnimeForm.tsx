@@ -36,7 +36,7 @@ const AnimeForm: React.FC<AnimeFormProps> = ({
 }) => {
 	const layoutClasses =
 		formLayout === "row"
-			? "h-16 flex flex-col gap-4 sm:flex-row"
+			? "h-fit min-h-16 flex flex-col sm:flex-row gap-4"
 			: "h-full flex flex-col gap-4";
 
 	const form = useForm<AnimeFormSchema>({
