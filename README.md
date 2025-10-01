@@ -1,7 +1,7 @@
-# 🎌 Risto
-
 <div align="center">
-  
+
+  <img src="https://raw.githubusercontent.com/sahebkhadem/risto/refs/heads/master/public/img/logo.webp" alt="Risto Logo" width="200" />
+
   ### A Modern Anime Tracker for Enthusiasts
   
   Track, organize, and manage your anime watchlist with a beautiful, intuitive interface.
@@ -126,20 +126,55 @@ Before you begin, ensure you have the following installed:
 
 ```
 risto/
-├── app/                    # Next.js 15 App Router
-│   ├── api/               # API routes
-│   ├── (routes)/          # Application routes
-│   └── layout.tsx         # Root layout
-├── components/            # React components
-│   ├── ui/               # shadcn/ui components
-│   └── ...               # Custom components
-├── lib/                   # Utility functions and configurations
-│   ├── prisma.ts         # Prisma client
-│   └── utils.ts          # Helper functions
-├── prisma/               # Prisma schema and migrations
-│   └── schema.prisma     # Database schema
-├── public/               # Static assets
-└── styles/               # Global styles
+├── prisma/                           # Prisma schema and migrations
+│   └── schema.prisma                 # Database schema
+├── scripts/                          # Project scripts (e.g. .env setup)
+│   └── create-env.js                 # Example: setup placeholder .env file
+├── src/
+│   ├── app/                          # Next.js 15 App Router
+│   │   ├── api/                      # API routes
+│   │   │   ├── auth/                 # Auth endpoints (login, register, etc.)
+│   │   │   ├── users/                # User-related endpoints
+│   │   │   └── ...                   # Other API routes
+│   │   ├── page.tsx                  # Application home page
+│   │   └── layout.tsx                # Root layout
+│   │
+│   ├── assets/                       # Static assets (images, icons, fonts, etc.)
+│   │   └── fonts/           
+│   │
+│   ├── components/                   # React components
+│   │   ├── ui/                       # shadcn/ui components
+│   │   ├── anime-dialog/             # Anime dialog
+│   │   └── ...                       # Other reusable components
+│   │
+│   ├── emails/                       # Email templates
+│   │   ├── VerificationEmail.tsx     # Email verification template
+│   │   ├── PasswordResetEmail.tsx    # Password reset template
+│   │   └── ...               
+│   │
+│   ├── generated/                    # Generated Prisma client
+│   │   └── ...               
+│   │
+│   ├── hooks/                        # Custom React hooks
+│   │   └── useDebounce.ts            # Example: debounce hook for searching          
+│   │
+│   ├── lib/                          # Utility functions and configs
+│   │   ├── prisma.ts                 # Prisma client
+│   │   ├── utils.ts                  # General helper functions
+│   │   ├── session.ts                # Session utilities
+│   │   └── ...               
+│   │
+│   ├── store/                        # State management (Zustand)
+│   │   ├── useAuthStore.ts           # Example auth store
+│   │   └── ...               
+│   │
+│   └── types/                        # TypeScript types
+│       ├── Animets                   # Anime type for Jjikan API response
+│       └── ...               
+│
+└── public/                           # Public static assets (served directly)
+    └── img
+	     └── logo.webp                # App logo
 ```
 
 ## 🛠️ Built With
@@ -235,7 +270,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Built with ❤️ using modern web technologies
+- Built using modern web technologies
 - UI components from [shadcn/ui](https://ui.shadcn.com/)
 - Hosted on [Vercel](https://vercel.com/)
 
