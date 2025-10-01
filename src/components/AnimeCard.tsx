@@ -28,7 +28,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({
 	return (
 		<Card
 			role="button"
-			className="p-0 pt-4 sm:pt-0 gap-0 flex-col sm:flex-row justify-center items-center bg-background cursor-pointer transition-colors hover:bg-black/5 hover:border-black/15 dark:hover:bg-white/5 dark:hover:border-white/15 col-span-6 lg:col-span-3 xl:col-span-2"
+			className="p-0 gap-0 flex-col sm:flex-row justify-center items-center bg-background cursor-pointer transition-colors hover:bg-black/5 hover:border-black/15 dark:hover:bg-white/5 dark:hover:border-white/15 col-span-6 lg:col-span-3 xl:col-span-2"
 			onClick={() => useAnimeStore.getState().setSelectedAnime(malId)}
 		>
 			<Image
@@ -36,7 +36,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({
 				alt={title}
 				width={150}
 				height={250}
-				className="rounded-md sm:rounded-l-md sm:rounded-r-none"
+				className="rounded-md w-full h-full sm:rounded-l-md sm:rounded-r-none"
 			/>
 
 			<CardContent className="p-4 flex-1">

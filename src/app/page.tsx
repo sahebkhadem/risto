@@ -57,19 +57,19 @@ export default function Home() {
 					<TabsTrigger value="completed">Completed</TabsTrigger>
 					<TabsTrigger value="dropped">Dropped</TabsTrigger>
 				</TabsList>
-				<TabsContent value="all">
+				<TabsContent value="all" className="flex flex-col items-center">
 					<AnimeList category="all" />
 				</TabsContent>
-				<TabsContent value="watching">
+				<TabsContent value="watching" className="flex flex-col items-center">
 					<AnimeList category="watching" />
 				</TabsContent>
-				<TabsContent value="planning">
+				<TabsContent value="planning" className="flex flex-col items-center">
 					<AnimeList category="planning" />
 				</TabsContent>
-				<TabsContent value="completed">
+				<TabsContent value="completed" className="flex flex-col items-center">
 					<AnimeList category="completed" />
 				</TabsContent>
-				<TabsContent value="dropped">
+				<TabsContent value="dropped" className="flex flex-col items-center">
 					<AnimeList category="dropped" />
 				</TabsContent>
 			</Tabs>
